@@ -192,22 +192,22 @@
         <div class="d-flex justify-content-center w-100 " id="navbarSupportedContent">
             <ul class="d-flex flex-wrap m-0 mb-lg-0 p-0 col-12 col-md-8" style="list-style-type: none;">
                 <li class="position-relative col-12 col-md-auto nav-item border mb-0 px-4 py-2 flex-fill text-center">
-                    <a onclick="changeAmbient(this, 'homeOffice')" class="btn-ambiente px-3 nav-link active"
+                    <a onclick="changeAmbient(this, 'home-office')" class="btn-ambiente px-3 nav-link active"
                         aria-current="page" href="#">Home office</a>
                 </li>
                 <li class="position-relative col-6 col-md-auto nav-item border mb-0 px-4 py-2 flex-fill text-center">
-                    <a onclick="changeAmbient(this, 'salaTv')" class="btn-ambiente px-3 nav-link" href="#">Sala
+                    <a onclick="changeAmbient(this, 'sala-tv')" class="btn-ambiente px-3 nav-link" href="#">Sala
                         TV</a>
                 </li>
                 <li class="position-relative col-6 col-md-auto nav-item border mb-0 px-4 py-2 flex-fill text-center">
-                    <a onclick="changeAmbient(this, 'salaJantar')" class="btn-ambiente px-3 nav-link" href="#">Sala de
+                    <a onclick="changeAmbient(this, 'sala-jantar')" class="btn-ambiente px-3 nav-link" href="#">Sala de
                         Estar</a>
                 </li>
                 <li class="position-relative col-6 col-md-auto nav-item border mb-0 px-4 py-2 flex-fill text-center">
                     <a onclick="changeAmbient(this, 'quarto')" class="btn-ambiente px-3 nav-link" href="#">Quarto</a>
                 </li>
                 <li class="position-relative col-6 col-md-auto nav-item border mb-0 px-4 py-2 flex-fill text-center">
-                    <a onclick="changeAmbient(this, 'quartoInfantil')" class="btn-ambiente px-3 nav-link"
+                    <a onclick="changeAmbient(this, 'quarto-infantil')" class="btn-ambiente px-3 nav-link"
                         href="#">Quarto
                         infantil</a>
                 </li>
@@ -263,12 +263,12 @@
             <div id="imgContent" class="position-relative wrapper">
                 <div id="before" class="before">
                     <h4 class="position-absolute top-0 bg-light px-2" style="right: 0;">Com Adesivo</h4>
-                    <img class="" src="./assets/ambientes/homeOffice/02.jpg" alt="" loading="lazy"
+                    <img class="" src="./assets/ambientes/home-office/02.jpg" alt="" loading="lazy"
                         style="object-position: left;">
                 </div>
                 <div id="after" class="after">
                     <h4 class="position-absolute top-0 me-3 bg-light px-2" style="white-space:nowrap ">Sem Adesivo</h4>
-                    <img class="" src="./assets/ambientes/homeOffice/01.jpg" alt="" loading="lazy"
+                    <img class="" src="./assets/ambientes/home-office/01.jpg" alt="" loading="lazy"
                         style="object-position: left;">
                 </div>
 
@@ -286,11 +286,11 @@
     <script>
         //  ------------- LOAD IMAGENS -----------------//
         const data = {
-            salaJantar: { memory: {} },
-            salaTv: { memory: {} },
-            homeOffice: { memory: {} },
-            quarto: { memory: {} },
-            quartoInfantil: { memory: {} }
+            sala- jantar: { memory: { } },
+            sala- tv: { memory: { } },
+        home - office: { memory: { } },
+        quarto: { memory: { } },
+        quarto - infantil: { memory: { } }
         }
 
         function imgPreLoad(url) {
@@ -304,7 +304,7 @@
 
         let changeAmbient, changeTexture;
         document.addEventListener('DOMContentLoaded', function () {
-            let currentAmbient = 'homeOffice';
+            let currentAmbient = 'home-office';
             const imgBefore = document.querySelector('#before');
             const imgAfter = document.querySelector('#after');
             const page = document.querySelector('#page');
