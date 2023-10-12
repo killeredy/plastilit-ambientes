@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ambientes Plastilit</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+</head>
+<style>
+    nav li:has(.active) {
+        background-color: #273abc;
+        color: white;
+    }
+
+    #imgContent img {
+        height: 100%;
+    }
+
+    section ul {
+        width: 100%;
+    }
+
+    section li {
+        height: 70px;
+    }
+
+    @media (min-width: 575.98px) {
+        nav li {
+            z-index: 3;
+        }
+
+        nav li:has(.active) {
+            background-color: transparent;
+        }
+
+        nav li::after {
+            content: '';
+            width: 100%;
+            background: #273abc;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            z-index: -1;
+            transition: height 0.2s ease-out;
+        }
+
+        nav li:hover::after {
+            height: 10%;
+        }
+
+
+        nav li:has(.active)::after {
+            height: 100%;
+        }
+
+        section ul li img {
+            transition: all 0.3s ease-out;
+            clip-path: polygon(0% 0%, 100% 0, 100% 50%, 100% 100%, 0% 100%);
+        }
+
+        section ul li.active img,
+        section ul li:hover img {
+            width: 110% !important;
+            z-index: 20;
+            clip-path: polygon(0% 0%, 90% 0, 100% 50%, 90% 100%, 0% 100%);
+        }
+
+        section ul li.active img::after,
+        section ul li:hover img::after {
+            content: "";
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            box-shadow: 0 0 10px black;
+            z-index: 20;
+        }
+
+    }
+</style>
+
+<style>
+    /* Our normalize css */
+    * {
+        margin: 0;
+        box-sizing: border-box;
+    }
+
+    /* Our wrapper */
+    .wrapper {
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        position: relative;
+
+        overflow: hidden;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+    }
+
+    /* Our image information */
+    .before,
+    .after {
+        width: 100%;
+        height: 100%;
+        background-repeat: no-repeat;
+        background-color: white;
+        background-size: cover;
+        background-position: center;
+        position: absolute;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+        overflow: hidden;
+    }
+
+    .content-image {
+        height: 100%;
+    }
+
+    .after {
+        width: 125px;
+    }
+
+    .scroller {
+        width: 50px;
+        height: 50px;
+        position: absolute;
+        left: 100px;
+        top: 50%;
+        transform: translateY(-50%);
+        border-radius: 50%;
+        background-color: transparent;
+        opacity: 0.9;
+        pointer-events: auto;
+        cursor: pointer;
+    }
+
+    .scroller:hover {
+        opacity: 1;
+    }
+
+    .scrolling {
+        pointer-events: none;
+        opacity: 1;
+        // z-index: 1;
+    }
+
+    .scroller__thumb {
+        width: 100%;
+        height: 100%;
+        padding: 5px;
+    }
+
+    .scroller:before,
+    .scroller:after {
+        content: " ";
+        display: block;
+        width: 7px;
+        height: 9999px;
+        position: absolute;
+        left: 50%;
+        margin-left: -3.5px;
+        z-index: 30;
+        transition: 0.1s;
+    }
+
+    .scroller:before {
+        top: 100%;
+    }
+
+    .scroller:after {
+        bottom: 100%;
+    }
+
+    /* If you want to cahnge the colors, make sure you change the fill in the svgs to match */
+    .scroller {
+        border: 5px solid #fff;
+    }
+
+    .scroller:before,
+    .scroller:after {
+        background: #fff;
+    }
+</style>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light pb-0">
+        <div class="d-flex justify-content-center w-100 " id="navbarSupportedContent">
+            <ul class="d-flex flex-wrap m-0 mb-lg-0 p-0 col-12 col-md-8" style="list-style-type: none;">
+                <li class="position-relative col-12 col-md-auto nav-item border mb-0 px-4 py-2 flex-fill text-center">
+                    <a onclick="changeAmbient(this, 'homeOffice')" class="btn-ambiente px-3 nav-link active"
+                        aria-current="page" href="#">Home office</a>
+                </li>
+                <li class="position-relative col-6 col-md-auto nav-item border mb-0 px-4 py-2 flex-fill text-center">
+                    <a onclick="changeAmbient(this, 'salaTv')" class="btn-ambiente px-3 nav-link" href="#">Sala
+                        TV</a>
+                </li>
+                <li class="position-relative col-6 col-md-auto nav-item border mb-0 px-4 py-2 flex-fill text-center">
+                    <a onclick="changeAmbient(this, 'salaJantar')" class="btn-ambiente px-3 nav-link" href="#">Sala de
+                        Estar</a>
+                </li>
+                <li class="position-relative col-6 col-md-auto nav-item border mb-0 px-4 py-2 flex-fill text-center">
+                    <a onclick="changeAmbient(this, 'quarto')" class="btn-ambiente px-3 nav-link" href="#">Quarto</a>
+                </li>
+                <li class="position-relative col-6 col-md-auto nav-item border mb-0 px-4 py-2 flex-fill text-center">
+                    <a onclick="changeAmbient(this, 'quartoInfantil')" class="btn-ambiente px-3 nav-link"
+                        href="#">Quarto
+                        infantil</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="inter-container d-flex flex-column-reverse flex-md-row" style="z-index: 3;">
+        <div class="col-12 col-md-2">
+            <ul class="d-flex flex-md-column p-0 m-0 flex-wrap h-100 active" style=" list-style-type: none;">
+                <li onclick="changeTexture(this)" value="2"
+                    class="col-4 col-md-auto position-relative btn-texture flex-fill border active">
+                    <img src="./assets/textures/02.jpg" alt="" srcset="" class="position-absolute top-0 w-100 h-100"
+                        style="object-fit: cover;">
+                </li>
+                <li onclick="changeTexture(this)" value="3"
+                    class="col-4 col-md-auto position-relative btn-texture flex-fill border">
+                    <img src="./assets/textures/03.jpg" alt="" srcset="" class="position-absolute top-0 w-100 h-100"
+                        style="object-fit: cover;">
+                </li>
+                <li onclick="changeTexture(this)" value="8"
+                    class="col-4 col-md-auto position-relative btn-texture flex-fill border">
+                    <img src="./assets/textures/08.jpg" alt="" srcset="" class="position-absolute top-0 w-100 h-100"
+                        style="object-fit: cover;">
+                </li>
+                <li onclick="changeTexture(this)" value="4"
+                    class="col-4 col-md-auto position-relative btn-texture flex-fill border">
+                    <img src="./assets/textures/04.jpg" alt="" srcset="" class="position-absolute top-0 w-100 h-100"
+                        style="object-fit: cover;">
+                </li>
+
+                <li onclick="changeTexture(this)" value="5"
+                    class="col-4 col-md-auto position-relative btn-texture flex-fill border">
+                    <img src="./assets/textures/05.jpg" alt="" srcset="" class="position-absolute top-0 w-100 h-100"
+                        style="object-fit: cover;">
+                </li>
+                <li onclick="changeTexture(this)" value="6"
+                    class="col-4 col-md-auto position-relative btn-texture flex-fill border">
+                    <img src="./assets/textures/06.jpg" alt="" srcset="" class="position-absolute top-0 w-100 h-100"
+                        style="object-fit: cover;">
+                </li>
+                <!-- 
+                <li onclick="changeTexture(this)" value="7"
+                    class="position-relative btn-texture flex-fill bg-warning border">
+                    <img src="./assets/textures/07.jpg" alt="" srcset="" class="position-absolute top-0 w-100 h-100"
+                        style="object-fit: cover;">
+                </li> -->
+
+
+            </ul>
+        </div>
+        <div id="page" class="col-12 col-md-10" style="z-index: 2;">
+            <div id="imgContent" class="position-relative wrapper">
+                <div id="before" class="before">
+                    <h4 class="position-absolute top-0 bg-light px-2" style="right: 0;">Com Adesivo</h4>
+                    <img class="" src="./assets/ambientes/homeOffice/02.jpg" alt="" loading="lazy"
+                        style="object-position: left;">
+                </div>
+                <div id="after" class="after">
+                    <h4 class="position-absolute top-0 me-3 bg-light px-2" style="white-space:nowrap ">Sem Adesivo</h4>
+                    <img class="" src="./assets/ambientes/homeOffice/01.jpg" alt="" loading="lazy"
+                        style="object-position: left;">
+                </div>
+
+                <div class="scroller">
+                    <svg class="scroller__thumb" xmlns="http://www.w3.org/2000/svg" width="100" height="100"
+                        viewBox="0 0 100 100">
+                        <polygon points="0 50 37 68 37 32 0 50" style="fill:#fff" />
+                        <polygon points="100 50 64 32 64 68 100 50" style="fill:#fff" />
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        //  ------------- LOAD IMAGENS -----------------//
+        const data = {
+            salaJantar: { memory: {} },
+            salaTv: { memory: {} },
+            homeOffice: { memory: {} },
+            quarto: { memory: {} },
+            quartoInfantil: { memory: {} }
+        }
+
+        function imgPreLoad(url) {
+            var img = new Image()
+            img.src = url;
+            img.style.objectFit = 'cover'
+            img.style.objectPosition = 'left'
+            return img;
+        }
+
+
+        let changeAmbient, changeTexture;
+        document.addEventListener('DOMContentLoaded', function () {
+            let currentAmbient = 'homeOffice';
+            const imgBefore = document.querySelector('#before');
+            const imgAfter = document.querySelector('#after');
+            const page = document.querySelector('#page');
+
+            for (let i in data) {
+                let ambiente = data[i];
+                for (let k = 1; k <= 8; k++) {
+                    let imgPath = "./assets/ambientes/" + i + "/0" + k + '.jpg'
+                    ambiente.memory[k] = imgPreLoad(imgPath);
+                }
+            }
+
+            changeTexture = function ($this) {
+                var op = $this.getAttribute("value");
+                let img = data[currentAmbient].memory;
+                imgBefore.querySelector('img').remove()
+                imgBefore.append(img[op]);
+                activeBtn($this, '.btn-texture')
+
+            }
+
+            changeAmbient = function ($this, ambient) {
+                currentAmbient = ambient;
+                let img = data[ambient].memory;
+                imgBefore.querySelector('img').remove()
+                imgAfter.querySelector('img').remove()
+
+                imgBefore.append(img[2]);
+                imgAfter.append(img[1]);
+                activeBtn($this, '.btn-ambiente')
+            }
+
+
+            function activeBtn($this, className) {
+                const list = document.querySelectorAll(className);
+
+                list.forEach(function (e) {
+                    e.classList.remove('active')
+                })
+
+                $this.classList.add('active')
+
+            }
+        }, false);
+
+    </script>
+
+    <script>
+
+        //  ------------- BEFORE AFTER -----------------//
+
+        let active = false;
+
+        document.querySelector('.scroller').addEventListener('mousedown', function () {
+            active = true;
+            document.querySelector('.scroller').classList.add('scrolling');
+        });
+
+        document.body.addEventListener('mouseup', function () {
+            active = false;
+            document.querySelector('.scroller').classList.remove('scrolling');
+        });
+        document.body.addEventListener('mouseleave', function () {
+            active = false;
+            document.querySelector('.scroller').classList.remove('scrolling');
+        });
+
+        document.body.addEventListener('mousemove', function (e) {
+            if (!active) return;
+            let x = e.pageX;
+            x -= document.querySelector('.wrapper').getBoundingClientRect().left;
+            scrollIt(x);
+        });
+
+
+        function scrollIt(x) {
+            let transform = Math.max(0, (Math.min(x, document.querySelector('.wrapper').offsetWidth)));
+            document.querySelector('.after').style.width = transform + "px";
+            document.querySelector('.scroller').style.left = transform - 25 + "px";
+        }
+
+
+        scrollIt(page.offsetWidth / 2);
+        document.querySelector('.scroller').addEventListener('touchstart', function () {
+            active = true;
+            document.querySelector('.scroller').classList.add('scrolling');
+        });
+        document.body.addEventListener('touchend', function () {
+            active = false;
+            document.querySelector('.scroller').classList.remove('scrolling');
+        });
+        document.body.addEventListener('touchcancel', function () {
+            active = false;
+            document.querySelector('.scroller').classList.remove('scrolling');
+        });
+
+
+    </script>
+
+</body>
+
+</html>
