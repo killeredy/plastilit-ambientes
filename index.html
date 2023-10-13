@@ -133,7 +133,7 @@
         top: 50%;
         transform: translateY(-50%);
         border-radius: 50%;
-        background-color: transparent;
+        background-color: rgba(255, 255, 255, 0.3);
         opacity: 0.9;
         pointer-events: auto;
         cursor: pointer;
@@ -158,11 +158,11 @@
     .scroller:after {
         content: " ";
         display: block;
-        width: 7px;
+        width: 2px;
         height: 9999px;
         position: absolute;
         left: 50%;
-        margin-left: -3.5px;
+        margin-left: -0.5px;
         z-index: 30;
         transition: 0.1s;
     }
@@ -177,7 +177,7 @@
 
     /* If you want to cahnge the colors, make sure you change the fill in the svgs to match */
     .scroller {
-        border: 5px solid #fff;
+        border: 2px solid #fff;
     }
 
     .scroller:before,
@@ -397,7 +397,6 @@
         document.querySelector('.scroller').addEventListener('touchstart', function () {
             active = true;
             document.querySelector('.scroller').classList.add('scrolling');
-            console.log(active)
         });
 
         document.querySelector('.scroller').addEventListener('touchmove', function (e) {
@@ -410,12 +409,10 @@
         document.body.addEventListener('touchend', function () {
             active = false;
             document.querySelector('.scroller').classList.remove('scrolling');
-            console.log(active)
         });
         document.body.addEventListener('touchcancel', function () {
             active = false;
             document.querySelector('.scroller').classList.remove('scrolling');
-            console.log('active')
         });
 
 
