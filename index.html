@@ -12,7 +12,7 @@
         crossorigin="anonymous"></script>
 </head>
 <style>
-    nav li:has(.active) {
+    nav li.active {
         background-color: #273abc;
         color: white;
     }
@@ -54,7 +54,7 @@
         }
 
 
-        nav li:has(.active)::after {
+        nav li.active::after {
             height: 100%;
         }
 
@@ -146,7 +146,6 @@
     .scrolling {
         pointer-events: none;
         opacity: 1;
-        // z-index: 1;
     }
 
     .scroller__thumb {
@@ -185,14 +184,19 @@
     .scroller:after {
         background: #fff;
     }
+
+    svg {
+        pointer-events: none;
+    }
 </style>
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light pb-0">
         <div class="d-flex justify-content-center w-100 " id="navbarSupportedContent">
             <ul class="d-flex flex-wrap m-0 mb-lg-0 p-0 col-12 col-md-8" style="list-style-type: none;">
-                <li class="position-relative col-12 col-md-auto nav-item border mb-0 px-4 py-2 flex-fill text-center">
-                    <a onclick="changeAmbient(this, 'homeoffice')" class="btn-ambiente px-3 nav-link active"
+                <li
+                    class="position-relative col-12 col-md-auto nav-item border mb-0 px-4 py-2 flex-fill text-center active">
+                    <a onclick="changeAmbient(this, 'homeoffice')" class="btn-ambiente px-3 nav-link"
                         aria-current="page" href="#">Home office</a>
                 </li>
                 <li class="position-relative col-6 col-md-auto nav-item border mb-0 px-4 py-2 flex-fill text-center">
@@ -344,10 +348,10 @@
                 const list = document.querySelectorAll(className);
 
                 list.forEach(function (e) {
-                    e.classList.remove('active')
+                    e.parentNode.classList.remove('active')
                 })
 
-                $this.classList.add('active')
+                $this.parentNode.classList.add('active')
 
             }
         }, false);
@@ -393,14 +397,25 @@
         document.querySelector('.scroller').addEventListener('touchstart', function () {
             active = true;
             document.querySelector('.scroller').classList.add('scrolling');
+            console.log(active)
         });
+
+        document.querySelector('.scroller').addEventListener('touchmove', function (e) {
+            if (!active) return;
+            let x = e.targetTouches[0].pageX;
+            x -= document.querySelector('.wrapper').getBoundingClientRect().left;
+            scrollIt(x);
+        });
+
         document.body.addEventListener('touchend', function () {
             active = false;
             document.querySelector('.scroller').classList.remove('scrolling');
+            console.log(active)
         });
         document.body.addEventListener('touchcancel', function () {
             active = false;
             document.querySelector('.scroller').classList.remove('scrolling');
+            console.log('active')
         });
 
 
